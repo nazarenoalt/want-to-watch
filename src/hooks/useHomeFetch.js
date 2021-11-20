@@ -18,7 +18,6 @@ const useHomeFetch = () => {
     try {
       setError(false)
       setLoading(true)
-      console.log(page)
       const movies = await API.fetchMovies(searchTerm, page)
       
       setState(prev => ({
@@ -29,8 +28,7 @@ const useHomeFetch = () => {
           : [...movies.results]
       }))
         
-      console.log(movies)
-
+      setLoading(false);
     } catch(error) {
       setError(true)
     }

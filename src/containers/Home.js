@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import HeroImage from '../components/HeroImage'
 //components
-
+import Grid from '../components/Grid'
 
 //config
 import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from '../config'
@@ -24,7 +24,12 @@ const Home = () => {
         text={state.results[0].overview}
       />
     }
-      {loading ? <h1>Loading...</h1> : <h1>[Info]</h1>}
+      {loading ? <h1>Loading...</h1> : 
+      <Grid header={'Popular Movies'}>
+        {state.results.map(movie => (
+          <div key={movie.id}>{movie.title}</div>  
+        ))}
+      </Grid>}
     </>
   )
 }
