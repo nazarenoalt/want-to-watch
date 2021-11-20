@@ -3,6 +3,7 @@ import HeroImage from '../components/HeroImage'
 //components
 import Grid from '../components/Grid'
 import Thumb from '../components/Thumb'
+import Spinner from '../components/Spinner'
 //config
 import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from '../config'
 
@@ -39,6 +40,7 @@ const Home = () => {
           /> 
         ))}
       </Grid>}
+      <Spinner />
     </>
   )
 }
