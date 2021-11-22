@@ -13,6 +13,7 @@ const useHomeFetch = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
+  const [isLoadingMore, setIsLoadingMore] = useState(false)
 
   const fetchMovies = async(page, searchTerm = "") => {
     try {
@@ -24,7 +25,7 @@ const useHomeFetch = () => {
         ...movies,
         results:
           page > 1 
-          ? [...prev.results, movies.results]
+          ? [...prev.results, ...movies.results]
           : [...movies.results]
       }))
         
@@ -40,7 +41,23 @@ const useHomeFetch = () => {
     fetchMovies(1, searchTerm)
   }, [searchTerm])
 
-  return { state, loading, error, searchTerm, setSearchTerm }
+  // load more
+  useEffect(() => {
+    if(!isLoadingMore) return
+
+    fetchMovies(state.page + 1, searchTerm)
+    setIsLoadingMore(false)
+  }, [isLoadingMore, searchTerm, state.page])
+
+  return {
+    state,
+    error,
+    loading,
+    searchTerm,
+    setSearchTerm,
+    isLoadingMore,
+    setIsLoadingMore
+  }
 }
 
 export default useHomeFetch
