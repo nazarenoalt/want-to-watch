@@ -9,7 +9,7 @@ import NoImage from '../../images/no_image.jpg'
 import { Wrapper, Content, Text } from './MovieInfo.style'
 
 const MovieInfo = ({ movie }) => (
-  <Wrapper backgrop={movie.backdrop_path}>
+  <Wrapper backdrop={movie.backdrop_path}>
     <Content>
       <Thumb
         image={movie.poster_path
@@ -28,13 +28,14 @@ const MovieInfo = ({ movie }) => (
               <h3>RATING</h3>
               <div className="score">{movie.vote_average}</div>
             </div>
-          </div>
-          <div className="director">
-            <h3>DIRECTOR{movie.directors.length > 1 && 'S'}</h3>
-            {movie.directors.map(director => (
-              <p key={director.credit_id}>{director.name}</p>
-            ))}
-          </div>
+              <div className="director">
+                <h3>DIRECTOR{movie.directors.length > 1 && 'S'}</h3>
+                {movie.directors.map(director => (
+                  <p key={director.credit_id}>{director.name}</p>
+                ))}
+              </div>
+            </div>
+         
         </Text>
     </Content>
   </Wrapper>
