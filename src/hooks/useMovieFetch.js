@@ -35,8 +35,10 @@ export const useMovieFetch = movieId => {
 
   useEffect(() => {
     const sessionState = isPersistedState(movieId)
+    console.log(sessionState)
 
     if(sessionState) {
+      setState(sessionState)
       setLoading(false)
       return
     }
@@ -48,5 +50,7 @@ export const useMovieFetch = movieId => {
   useEffect(() => {
     sessionStorage.setItem(movieId, JSON.stringify(state))
   }, [movieId, state])
+
+
   return { state, loading, error }
 }
