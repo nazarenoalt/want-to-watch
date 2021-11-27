@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 // API
 import API from '../API'
+// Helpers
+import { isPersistedState } from '../helpers'
 
 const useHomeFetch = () => {
   const initialState = {
@@ -37,10 +39,22 @@ const useHomeFetch = () => {
 
   // initial and search
   useEffect(() => {
+    if(!searchTerm) {
+      const sessionState = isPersistedState('homeState')
+      console.log(sessionState)
+      if(sessionState) {
+        setState(sessionState);
+        return;
+      }
+    }
     setState(initialState)
     fetchMovies(1, searchTerm)
   }, [searchTerm])
 
+  // write to sessionStorage
+  useEffect(() => {
+    if(!searchTerm) sessionStorage.setItem('homeState', JSON.stringify(state))
+  }, [searchTerm, state])
   // load more
   useEffect(() => {
     if(!isLoadingMore) return
